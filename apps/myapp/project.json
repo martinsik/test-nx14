@@ -14,7 +14,24 @@
         "tsConfig": "apps/myapp/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["apps/myapp/src/favicon.ico", "apps/myapp/src/assets"],
-        "styles": ["apps/myapp/src/styles.scss"],
+        "styles": [
+          "apps/myapp/src/styles.scss",
+          {
+            "input": "apps/myapp/src/themes/blue.scss",
+            "bundleName": "blue.theme",
+            "inject": true
+          },
+          {
+            "input": "apps/myapp/src/themes/green.scss",
+            "bundleName": "green.theme",
+            "inject": false
+          },
+          {
+            "input": "apps/myapp/src/themes/purple.scss",
+            "bundleName": "purple.theme",
+            "inject": false
+          }
+        ],
         "scripts": []
       },
       "configurations": {
@@ -80,6 +97,53 @@
       "options": {
         "jestConfig": "apps/myapp/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "apps/myapp/.storybook",
+        "browserTarget": "myapp:build",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/myapp",
+        "configDir": "apps/myapp/.storybook",
+        "browserTarget": "myapp:build",
+        "compodoc": false,
+        "styles": [
+          "apps/myapp/src/storybook.scss",
+          {
+            "input": "apps/myapp/src/themes/blue.scss",
+            "bundleName": "blue.theme.css",
+            "inject": true
+          },
+          {
+            "input": "apps/myapp/src/themes/green.scss",
+            "bundleName": "green.theme",
+            "inject": false
+          },
+          {
+            "input": "apps/myapp/src/themes/purple.scss",
+            "bundleName": "purple.theme",
+            "inject": false
+          }
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
       }
     }
   },
